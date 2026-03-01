@@ -18,25 +18,25 @@ const Projects = () => {
         // Fetch more repos from GitHub (up to 30 to get a good selection)
         const response = await fetch('https://api.github.com/users/iharshkumar/repos?sort=updated&per_page=30');
         const data = await response.json();
-        
+
         // Filter out forks if needed, and ensure we have valid repos
         const validRepos = data.filter(repo => repo && !repo.fork);
-        
+
         // Sort repos: projects with live demo (homepage) first, then by stars, then by updated date
         const sortedRepos = validRepos.sort((a, b) => {
           // Priority 1: Projects with homepage (live demo) come first
           if (a.homepage && !b.homepage) return -1;
           if (!a.homepage && b.homepage) return 1;
-          
+
           // Priority 2: If both have or both don't have homepage, sort by stars
           if (a.stargazers_count !== b.stargazers_count) {
             return b.stargazers_count - a.stargazers_count;
           }
-          
+
           // Priority 3: If stars are equal, maintain updated date order (newest first)
           return new Date(b.updated_at) - new Date(a.updated_at);
         });
-        
+
         // Take only the top 6 projects for display
         setRepos(sortedRepos.slice(0, 6));
       } catch (error) {
@@ -58,8 +58,8 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2">
-            Featured <span className="text-gradient">Projects</span>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Featured <span className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Projects</span>
           </h2>
           <div className="w-16 sm:w-20 h-0.5 sm:h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4 sm:mb-6" />
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4">
@@ -82,15 +82,15 @@ const Projects = () => {
                 key={repo.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   delay: Math.min(index * 0.1, 0.4),
                   ease: [0.16, 1, 0.3, 1]
                 }}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   scale: 1.02,
-                  transition: { 
+                  transition: {
                     duration: 0.3,
                     ease: [0.4, 0, 0.2, 1]
                   }
@@ -122,10 +122,10 @@ const Projects = () => {
                     </div>
                   </CardContent>
                   <CardFooter className="gap-2 flex sm:flex-row pt-2 pb-4 sm:pb-5 px-4 sm:px-6">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      asChild 
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
                       className="flex-1 w-full text-xs h-9 sm:h-9"
                     >
                       <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
@@ -134,14 +134,14 @@ const Projects = () => {
                       </a>
                     </Button>
                     {repo.homepage && (
-                      <Button 
-                        size="sm" 
-                        asChild 
+                      <Button
+                        size="sm"
+                        asChild
                         className="flex-1 w-full text-xs h-9 sm:h-9"
                       >
-                        <a 
-                          href={repo.homepage} 
-                          target="_blank" 
+                        <a
+                          href={repo.homepage}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center"
                         >
@@ -163,15 +163,15 @@ const Projects = () => {
           transition={{ delay: 0.6, duration: 0.6 }}
           className="text-center mt-10 sm:mt-12 px-2"
         >
-          <Button 
-            size="lg" 
-            variant="outline" 
-            asChild 
+          <Button
+            size="lg"
+            variant="outline"
+            asChild
             className="rounded-full w-full sm:w-auto h-11 sm:h-12 text-sm sm:text-base"
           >
-            <a 
-              href="https://github.com/iharshkumar" 
-              target="_blank" 
+            <a
+              href="https://github.com/iharshkumar"
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center px-6"
             >

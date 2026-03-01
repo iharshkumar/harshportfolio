@@ -31,15 +31,15 @@ const About = () => {
     }
   ];
 
-  const skills = ["Java", "Python", "Agentic AI", "Leadership", "Problem Solving"];
+  const skills = ["Java", "Python", "Agentic AI", "ReactJs", "NodeJs", "MongoDB", "Problem Solving", "Leadership"];
 
-  
+
   return (
     <section id="about" className="py-20 md:py-28 px-4 sm:px-6 bg-background/50 relative overflow-hidden" ref={ref}>
       {/* Decorative elements */}
       <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
       <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header Section */}
         <motion.div
@@ -59,7 +59,7 @@ const About = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Text Content */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-2 space-y-8"
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
@@ -78,26 +78,24 @@ const About = () => {
                   <div className="flex space-x-4 mb-4">
                     <button
                       onClick={() => setActiveTab('about')}
-                      className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                        activeTab === 'about' 
-                          ? 'bg-primary text-white' 
-                          : 'text-muted-foreground hover:bg-accent/50'
-                      }`}
+                      className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${activeTab === 'about'
+                        ? 'bg-primary text-white'
+                        : 'text-muted-foreground hover:bg-accent/50'
+                        }`}
                     >
                       About
                     </button>
                     <button
                       onClick={() => setActiveTab('education')}
-                      className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                        activeTab === 'education' 
-                          ? 'bg-primary text-white' 
-                          : 'text-muted-foreground hover:bg-accent/50'
-                      }`}
+                      className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${activeTab === 'education'
+                        ? 'bg-primary text-white'
+                        : 'text-muted-foreground hover:bg-accent/50'
+                        }`}
                     >
                       Education
                     </button>
                   </div>
-                  
+
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeTab}
@@ -151,7 +149,7 @@ const About = () => {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, index) => (
-                    <span 
+                    <span
                       key={index}
                       className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium"
                     >
@@ -164,7 +162,7 @@ const About = () => {
           </motion.div>
 
           {/* Right Column - Profile Card */}
-          <motion.div 
+          <motion.div
             className="relative h-full"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

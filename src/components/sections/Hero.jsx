@@ -27,7 +27,7 @@ const Hero = ({ isDark }) => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -101,7 +101,7 @@ const Hero = ({ isDark }) => {
             className="space-y-6"
           >
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-2">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 !mt-3 rounded-full bg-primary/10 text-primary text-sm font-medium">
                 <span>Available for opportunities</span>
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               </div>
@@ -130,7 +130,7 @@ const Hero = ({ isDark }) => {
               )}
             </h1>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -140,7 +140,7 @@ const Hero = ({ isDark }) => {
                 Developer & Creator
               </h2>
             </motion.div>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
@@ -160,8 +160,8 @@ const Hero = ({ isDark }) => {
                   whileHover={{ y: -3, scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {React.cloneElement(social.icon, { 
-                    className: 'w-6 h-6' 
+                  {React.cloneElement(social.icon, {
+                    className: 'w-6 h-6'
                   })}
                 </motion.a>
               ))}
@@ -177,8 +177,8 @@ const Hero = ({ isDark }) => {
           >
             <Suspense fallback={<ComputerLoader />}>
               {isMobile ? (
-                <MobileDevice3D 
-                  isDark={isDark} 
+                <MobileDevice3D
+                  isDark={isDark}
                   folders={[
                     { id: 1, label: 'About', section: 'about', icon: '👤' },
                     { id: 2, label: 'Projects', section: 'projects', icon: '💼' },
@@ -186,7 +186,7 @@ const Hero = ({ isDark }) => {
                     { id: 4, label: 'Skills', section: 'skills', icon: '⚡' },
                     { id: 5, label: 'Contact', section: 'contact', icon: '📧' },
                     { id: 6, label: 'YouTube', section: 'youtube', icon: '📺', url: 'https://www.youtube.com/@alostpick' },
-                  ]} 
+                  ]}
                 />
               ) : (
                 <ModernSetup3D isDark={isDark} />
