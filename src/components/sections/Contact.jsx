@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import emailjs from '@emailjs/browser';
 
-// Load environment variables
+// EmailJS Configuration
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -19,6 +19,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,38 +27,30 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate environment variables
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      // Demo fallback: open default mail client with prefilled content
-      const subject = encodeURIComponent(`New message from ${formData.name}`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
-      const mailtoUrl = `mailto:srivastavaharsh1108@gmail.com?subject=${subject}&body=${body}`;
-      window.location.href = mailtoUrl;
-      toast.info("Opened your email app to send the message (demo mode)");
+
+    // Validate form fields
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      toast.error("Please fill in all required fields.");
       return;
     }
 
     setIsSubmitting(true);
-    
+
     try {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          from_name: formData.name.trim(),
-          from_email: formData.email.trim(),
-          to_email: 'srivastavaharsh1108@gmail.com',
-          message: formData.message.trim(),
-          reply_to: formData.email.trim()
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim()
         },
         EMAILJS_PUBLIC_KEY
       );
-      
+
       toast.success("Message sent! 🚀 I'll get back to you soon.");
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       console.error('Error sending email:', error);
       toast.error("Failed to send message. Please try again later.");
@@ -160,6 +153,21 @@ const Contact = () => {
                   />
                   <label className="absolute left-3 top-4 text-muted-foreground pointer-events-none transition-all duration-200 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:top-2">
                     Your Email
+                  </label>
+                </div>
+                <div className="relative">
+                  <Input
+                    placeholder=" "
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    onFocus={() => setFocusedField("subject")}
+                    onBlur={() => setFocusedField(null)}
+                    className="bg-background/50 peer pt-6"
+                    required
+                  />
+                  <label className="absolute left-3 top-4 text-muted-foreground pointer-events-none transition-all duration-200 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:top-2">
+                    Subject
                   </label>
                 </div>
                 <div className="relative">

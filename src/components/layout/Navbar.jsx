@@ -103,7 +103,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
               </motion.div>
 
               {/* Desktop Navigation - Icons Only */}
-              <div className="hidden md:flex items-center justify-center flex-1 space-x-2">
+              <div className="hidden lg:flex items-center justify-center flex-1 space-x-2">
                 {navItems.map((item) => {
                   const IconComponent = item.icon;
                   const isActive = activeSection === item.href;
@@ -127,8 +127,8 @@ const Navbar = ({ isDark, toggleTheme }) => {
                     >
                       <div
                         className={`relative p-2.5 rounded-lg transition-all duration-300 ${isActive
-                            ? 'bg-primary/20 text-primary'
-                            : 'text-foreground/70 hover:text-foreground hover:bg-accent/50'
+                          ? 'bg-primary/20 text-primary'
+                          : 'text-foreground/70 hover:text-foreground hover:bg-accent/50'
                           }`}
                       >
                         <IconComponent className="w-5 h-5" />
@@ -256,7 +256,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
 
                 <motion.button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="md:hidden p-1.5 sm:p-2.5 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center relative z-50 flex-shrink-0"
+                  className="lg:hidden p-1.5 sm:p-2.5 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center relative z-50 flex-shrink-0"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -300,7 +300,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -10, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed top-14 left-0 right-0 z-[60] md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg supports-[backdrop-filter]:bg-background/80"
+            className="fixed top-14 left-0 right-0 z-[60] lg:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg supports-[backdrop-filter]:bg-background/80"
             style={{
               WebkitBackdropFilter: 'blur(12px)',
               backdropFilter: 'blur(12px)'
