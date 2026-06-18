@@ -7,8 +7,8 @@ const ModernSetup3D = lazy(() => import('./ModernSetup3D.jsx'));
 const MobileDevice3D = lazy(() => import('./MobileDevice3D.jsx'));
 
 // Loading component for the 3D model
-const ComputerLoader = () => (
-  <div className="w-full h-[500px] flex items-center justify-center">
+const ComputerLoader = ({ isMobile }) => (
+  <div className={`w-full ${isMobile ? 'h-[380px]' : 'h-[600px]'} flex items-center justify-center`}>
     <div className="animate-pulse text-muted-foreground">
       Loading Interactive Model...
     </div>
@@ -74,7 +74,7 @@ const Hero = ({ isDark }) => {
     { icon: <Github className="w-4 h-4" />, url: "https://github.com/iharshkumar" },
     { icon: <Twitter className="w-4 h-4" />, url: "https://x.com/harsh_7243" },
     { icon: <Instagram className="w-4 h-4" />, url: "https://www.instagram.com/harsh_7243" },
-    { icon: <Linkedin className="w-4 h-4" />, url: "https://linkedin.com/in/meharshkumar7" },
+    { icon: <Linkedin className="w-4 h-4" />, url: "https://linkedin.com/in/meharshkumar" },
     { icon: <Mail className="w-4 h-4" />, url: "mailto:srivastavaharsh1108@gmail.com" },
   ];
 
@@ -175,7 +175,7 @@ const Hero = ({ isDark }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative w-full h-full md:min-h-[600px] min-h-[200px]"
           >
-            <Suspense fallback={<ComputerLoader />}>
+            <Suspense fallback={<ComputerLoader isMobile={isMobile} />}>
               {isMobile ? (
                 <MobileDevice3D
                   isDark={isDark}

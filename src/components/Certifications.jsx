@@ -47,6 +47,7 @@ const CertificationCard = ({
             src={image} 
             alt={alt} 
             className="w-full h-full object-cover rounded-lg"
+            loading="lazy"
           />
         </div>
         

@@ -23,45 +23,46 @@ const Navbar = ({ isDark, toggleTheme }) => {
   useEffect(() => {
     const handleScroll = () => {
       if (!navbarRef.current) return;
-      clearTimeout(shrinkTimeout.current);
       if (window.scrollY > 10) {
-        navbarRef.current.classList.add('navbar--shrink-v');
-        shrinkTimeout.current = setTimeout(() => {
-          navbarRef.current.classList.add('navbar--shrink-h');
-        }, 150);
+        navbarRef.current.classList.add('navbar--shrink-v', 'navbar--shrink-h');
       } else {
-        navbarRef.current.classList.remove('navbar--shrink-h');
-        navbarRef.current.classList.remove('navbar--shrink-v');
-      }
-
-      // Determine active section based on scroll position
-      const sectionIds = ["#about", "#projects", "#experience", "#certifications", "#contact"];
-      const sections = sectionIds.map(id => {
-        const element = document.querySelector(id);
-        return element ? { id, element } : null;
-      }).filter(Boolean);
-
-      const scrollPosition = window.scrollY + 100;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.element.offsetTop <= scrollPosition) {
-          setActiveSection(section.id);
-          return;
-        }
+        navbarRef.current.classList.remove('navbar--shrink-v', 'navbar--shrink-h');
       }
 
       // If at top, set home as active
-      if (window.scrollY < 100) {
+      if (window.scrollY < 80) {
         setActiveSection("#");
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Call once to set initial state
+
+    // Dynamic Active Section Tracking using Intersection Observer (non-blocking, 0 layout thrashing)
+    const sectionIds = ["about", "projects", "experience", "certifications", "contact"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px", // triggers when section dominates middle area
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
     return () => {
-      clearTimeout(shrinkTimeout.current);
       window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
     };
   }, []);
 
@@ -72,7 +73,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.33, ease: "easeOut" }}
-        className={"navbar fixed top-0 left-0 right-0 z-50 transition-all overflow-visible select-none"}
+        className={"navbar fixed top-0 left-0 right-0 z-[100] transition-all overflow-visible select-none"}
       >
         <div className="navbar__container w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full" style={{ paddingTop: 'var(--navbar-padding)', paddingBottom: 'var(--navbar-padding)' }}>
